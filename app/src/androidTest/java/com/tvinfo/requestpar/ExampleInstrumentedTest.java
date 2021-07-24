@@ -1,4 +1,4 @@
-package com.example.requestpar;
+package com.tvinfo.requestpar;
 
 import android.content.Context;
 

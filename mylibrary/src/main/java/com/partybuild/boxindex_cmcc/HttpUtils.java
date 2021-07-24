@@ -1,4 +1,4 @@
-package com.example.mylibrary;
+package com.partybuild.boxindex_cmcc;
 
 
 import java.io.ByteArrayOutputStream;
