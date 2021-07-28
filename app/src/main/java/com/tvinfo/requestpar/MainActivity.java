@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.partybuild.boxindex_cmcc.DeviceUNHelper;
+import com.partybuild.boxindex_cmcc.DeviceUnCallBack;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,10 +21,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.get).setOnClickListener(v -> new Thread(() -> {
-            String info = DeviceUNHelper.getDeviceUN();
-            v.post(() -> {
-                ((TextView) findViewById(R.id.info)).setText("DEVICE_UN : " + info);
+            DeviceUNHelper.getDeviceUN(new DeviceUnCallBack() {
+                @Override
+                public void onSuccess(String deviceUn) {
+                    v.post(() -> {
+                        ((TextView) findViewById(R.id.info)).setText("DEVICE_UN : " + deviceUn);
+                    });
+                }
+
+                @Override
+                public void onFailed() {
+                    v.post(() -> {
+                        ((TextView) findViewById(R.id.info)).setText("DEVICE_UN : " + "失败");
+                    });
+                }
             });
+
         }).start());
     }
 

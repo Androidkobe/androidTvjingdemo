@@ -28,4 +28,29 @@ public class AndroidUtils {
         }
         return serial;
     }
+
+    public static String getModel() {
+        String model = "";
+
+        try {
+            model = android.os.Build.MODEL;
+            if (!model.equals("")&&!model.equals("unknown"))return model;
+        }catch (Exception e){
+            model="";
+        }
+
+        try {
+            Class<?> c =Class.forName("android.os.SystemProperties");
+            Method get =c.getMethod("get", String.class);
+            model = (String)get.invoke(c, "ro.product.model");
+            if (!model.equals("")&&!model.equals("unknown"))return model;
+
+            //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)model = Build.getProductModel();
+        } catch (Exception e) {
+            model="";
+        }
+
+        return model;
+    }
 }
+
